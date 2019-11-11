@@ -31,8 +31,8 @@ public class VisualizationPanel extends JPanel {
 		}
 		this.setLayout(new BorderLayout());
 		dataPanel = new DataPanel();
-		controls = new FiltersPanel(dataPanel, allData);
-		creator = new ChartCreatorPanel();
+		creator = new ChartCreatorPanel(allData);
+		controls = new FiltersPanel(new DataReceiverMultiplexer(dataPanel, creator), allData);
 		
 		JPanel north = new JPanel();
 		north.setLayout(new BorderLayout());

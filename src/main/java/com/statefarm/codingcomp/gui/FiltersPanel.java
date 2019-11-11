@@ -3,6 +3,7 @@ package com.statefarm.codingcomp.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -62,6 +63,7 @@ public class FiltersPanel extends JPanel implements ItemListener {
 		this.add(genPanel("Policy Type:", typeSelector));
 		
 		statusSelector = new JComboBox<String>(policyStatuses);
+		statusSelector.setPreferredSize(new Dimension(125, 20));
 		this.add(genPanel("Policy Status:", statusSelector));
 		
 		stateSelector = new JComboBox<String>(states);
