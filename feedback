@@ -1,8 +1,14 @@
-Team Name(s):  
+Team Name(s):  Robert Pooley and Jeremy Schonfeld
 
 Document and describe any enhancements included to help the judges properly grade your submission.
-	Step 1:
-	Step 2: 
+	We created a GUI that displays a data table of all of the data. This table allows you to sort all of the data.
 	
+	You can also use the filter options to filter to specific subsets of data by using the selectors at the top.
+	
+	Finally, you can select your X and Y variables to create a visual graph to represent the data (within the subset of the filters).
+	
+	This GUI can be launched with any CSV file including the given one.
 	
 Feedback for the coding competition?  Things you would like to see in future events?
+
+Nope, competition went well and we had fun!
