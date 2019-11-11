@@ -25,9 +25,15 @@ public class ChartBuilder {
 	private static final int HEIGHT = 600;
 	
 	private List<Policy> policies;
+	private String desc;
 	
 	public ChartBuilder(List<Policy> policies) {
+		this(policies, "");
+	}
+	
+	public ChartBuilder(List<Policy> policies, String desc) {
 		this.policies = policies;
+		this.desc = desc;
 	}
 	
 	private Map<String, List<Policy>> getBuckets(PolicyField dataType) {
@@ -88,7 +94,7 @@ public class ChartBuilder {
 		PieChart chart = new PieChartBuilder()
 				.width(WIDTH)
 				.height(HEIGHT)
-				.title("Pie chart")
+				.title("Pie chart (" + this.desc + ")")
 				.build();
 		
 		Map<String, Integer> series = new LinkedHashMap<>();
@@ -109,7 +115,7 @@ public class ChartBuilder {
 		CategoryChart chart = new CategoryChartBuilder()
 				.width(WIDTH)
 				.height(HEIGHT)
-				.title("Bar chart")
+				.title("Bar chart (" + this.desc + ")")
 				.xAxisTitle(xAxis.toString())
 				.yAxisTitle(yAxis.toString())
 				.build();
