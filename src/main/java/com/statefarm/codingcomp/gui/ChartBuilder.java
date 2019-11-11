@@ -1,7 +1,6 @@
 package com.statefarm.codingcomp.gui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,7 +91,7 @@ public class ChartBuilder {
 				.title("Pie chart")
 				.build();
 		
-		Map<String, Integer> series = new HashMap<>();
+		Map<String, Integer> series = new LinkedHashMap<>();
 		
 		Map<String, List<Policy>> buckets = getBuckets(dataType);
 		for (String name : buckets.keySet()) {
