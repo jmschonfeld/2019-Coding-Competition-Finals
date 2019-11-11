@@ -23,7 +23,7 @@ public class Range {
 		String prefix = showDollars ? "$" : "";
 		
 		if (min == 0) {
-			return "< " + prefix + max;
+			return "< " + prefix + (max + 1);
 		} else if (max == Integer.MAX_VALUE) {
 			return "> " + prefix + min;
 		} else {
