@@ -14,12 +14,14 @@ public class VisualizationPanel extends JPanel {
 	
 	private FiltersPanel controls;
 	private DataPanel dataPanel;
+	private ChartCreatorPanel creator;
 	
 	public VisualizationPanel() {
 		super();
 		this.setLayout(new BorderLayout());
 		dataPanel = new DataPanel();
 		controls = new FiltersPanel(dataPanel);
+		creator = new ChartCreatorPanel();
 		
 		JPanel north = new JPanel();
 		north.setLayout(new BorderLayout());
@@ -36,6 +38,7 @@ public class VisualizationPanel extends JPanel {
 		});
 		north.add(back, BorderLayout.WEST);
 		north.add(controls, BorderLayout.CENTER);
+		north.add(creator, BorderLayout.EAST);
 		this.add(north, BorderLayout.NORTH);
 		this.add(dataPanel, BorderLayout.CENTER);
 		try {

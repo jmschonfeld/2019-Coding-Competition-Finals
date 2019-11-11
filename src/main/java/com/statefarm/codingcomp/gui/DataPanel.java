@@ -17,7 +17,7 @@ public class DataPanel extends JPanel implements DataReceiver {
 	
 	private JTable table;
 	
-	private static final String[] HEADERS = new String[]{"Policy Type", "Policy Status", "Policy State", "Annual Premium", "Age", "Accidents"};
+	private static final String[] HEADERS = new String[]{"Policy Type", "Policy Status", "State", "Annual Premium", "Age", "Accidents"};
 	
 	DataPanel() {
 		this.setLayout(new BorderLayout());
@@ -37,7 +37,7 @@ public class DataPanel extends JPanel implements DataReceiver {
 		for (Policy policy : policies) {
 			data[i] = new String[] {
 				policy.getPolicyType(),
-				policy.getPolicyStatus().name(),
+				policy.getPolicyStatus().getUserFriendlyName(),
 				policy.getState(),
 				policy.getAnnualPremium() + "",
 				policy.getAge() + "",
