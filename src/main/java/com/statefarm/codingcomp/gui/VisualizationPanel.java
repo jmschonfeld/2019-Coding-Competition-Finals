@@ -3,10 +3,12 @@ package com.statefarm.codingcomp.gui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import com.statefarm.codingcomp.model.Policy;
 import com.statefarm.codingcomp.reader.Reader;
 
 public class VisualizationPanel extends JPanel {
@@ -16,11 +18,20 @@ public class VisualizationPanel extends JPanel {
 	private DataPanel dataPanel;
 	private ChartCreatorPanel creator;
 	
+	private List<Policy> allData;
+	
 	public VisualizationPanel() {
 		super();
+		try {
+			allData = new Reader().read();
+		} catch (Exception e2) {
+			e2.printStackTrace();
+			System.exit(1);
+			return;
+		}
 		this.setLayout(new BorderLayout());
 		dataPanel = new DataPanel();
-		controls = new FiltersPanel(dataPanel);
+		controls = new FiltersPanel(dataPanel, allData);
 		creator = new ChartCreatorPanel();
 		
 		JPanel north = new JPanel();

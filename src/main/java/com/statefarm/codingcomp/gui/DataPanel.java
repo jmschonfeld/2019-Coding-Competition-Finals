@@ -3,10 +3,11 @@ package com.statefarm.codingcomp.gui;
 import java.awt.BorderLayout;
 import java.util.List;
 
+import javax.swing.Box;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -16,6 +17,7 @@ public class DataPanel extends JPanel implements DataReceiver {
 	private static final long serialVersionUID = 8399167358797477523L;
 	
 	private JTable table;
+	private JLabel recordLabel;
 	
 	private static final String[] HEADERS = new String[]{"Policy Type", "Policy Status", "State", "Annual Premium", "Age", "Accidents"};
 	
@@ -27,7 +29,13 @@ public class DataPanel extends JPanel implements DataReceiver {
 		table.setShowGrid(true);
 		table.setModel(new PolicyDataModel(HEADERS, 0));
 		
+		recordLabel = new JLabel();
+		
 		this.add(new JScrollPane(table), BorderLayout.CENTER);
+		JPanel south = new JPanel();
+		south.setLayout(new BorderLayout());
+		south.add(recordLabel, BorderLayout.EAST);
+		this.add(south, BorderLayout.SOUTH);
 	}
 
 	@Override
@@ -47,6 +55,7 @@ public class DataPanel extends JPanel implements DataReceiver {
 		}
 		TableModel model = new PolicyDataModel(data, HEADERS);
 		table.setModel(model);
+		recordLabel.setText("Data Entries: " + data.length + "   ");
 	}
 	
 	private class PolicyDataModel extends DefaultTableModel {
