@@ -130,12 +130,17 @@ public class ChartBuilder {
 					value++;
 					break;
 				case NUM_ACCIDENTS:
+				case NUM_ACCIDENTS_AVERAGE:
 					value += policy.getNumberOfAccidents();
 					break;
 				case ANNUAL_PREMIUM:
+				case ANNUAL_PREMIUM_AVERAGE:
 					value += policy.getAnnualPremium();
 					break;
 				}
+			}
+			if (yAxis == YAxis.ANNUAL_PREMIUM_AVERAGE || yAxis == YAxis.NUM_ACCIDENTS_AVERAGE) {
+				value /= buckets.get(name).size();
 			}
 			xData.add(name);
 			yData.add(value);

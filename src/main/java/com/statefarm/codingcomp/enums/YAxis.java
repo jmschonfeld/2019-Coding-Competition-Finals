@@ -3,6 +3,8 @@ package com.statefarm.codingcomp.enums;
 public enum YAxis {
 	NUM_POLICIES,
 	NUM_ACCIDENTS,
-	ANNUAL_PREMIUM;
+	NUM_ACCIDENTS_AVERAGE,
+	ANNUAL_PREMIUM,
+	ANNUAL_PREMIUM_AVERAGE;
 
 }
