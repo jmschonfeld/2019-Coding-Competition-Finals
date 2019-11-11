@@ -24,7 +24,7 @@ public class FiltersPanel extends JPanel implements ItemListener {
 		this.filters = new ControlFilters();
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.setBorder(BorderFactory.createTitledBorder("Options"));
+		this.setBorder(BorderFactory.createTitledBorder("Filter Data"));
 		JLabel typeLabel = new JLabel("Chart Type");
 		typeLabel.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
 		this.add(typeLabel);
