@@ -13,7 +13,6 @@ public class FiltersPanel extends JPanel implements ItemListener {
 	private static final long serialVersionUID = 4645758996733040911L;
 	
 	private DataReceiver object;
-	private ControlFilters filters;
 	
 	private JComboBox<String> chartTypeSelector, xAxisSelector;
 	
@@ -21,7 +20,6 @@ public class FiltersPanel extends JPanel implements ItemListener {
 
 	public FiltersPanel(DataReceiver object) {
 		this.object = object;
-		this.filters = new ControlFilters();
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setBorder(BorderFactory.createTitledBorder("Filter Data"));
@@ -49,7 +47,7 @@ public class FiltersPanel extends JPanel implements ItemListener {
 
 	public void itemStateChanged(ItemEvent e) {
 		if (e.getStateChange() == ItemEvent.SELECTED) {
-			this.filters.setChartType(chartTypeSelector.getSelectedIndex() + 1);
+			//this.filters.setChartType(chartTypeSelector.getSelectedIndex() + 1);
 			//this.filters.setXAxis(xAxisSelector.getSelectedIndex() + 1);
 			switch (chartTypeSelector.getSelectedIndex()) {
 			case 0:

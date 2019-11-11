@@ -15,25 +15,49 @@ import org.knowm.xchart.SwingWrapper;
 import org.knowm.xchart.internal.chartpart.Chart;
 import org.knowm.xchart.style.Styler.LegendPosition;
 
-public class ChartView extends JPanel {
+import com.statefarm.codingcomp.enums.PolicyField;
+import com.statefarm.codingcomp.model.Policy;
 
-	private static final long serialVersionUID = 1L;
+public class ChartBuilder {
 	
 	private static final int WIDTH = 800;
 	private static final int HEIGHT = 600;
 	
-	private Map<String, Map<String, Integer>> yearCatIncidents;
-	private int[] years;
-	private List<String> categories;
+	private List<Policy> policies;
 	
-	private JPanel currentXPanel;
-	
-	public ChartView() {
-		update(new ControlFilters()
-				.setChartType(ControlFilters.CHART_PIE)
-		);
+	public ChartBuilder(List<Policy> policies) {
+		this.policies = policies;
 	}
-
+	
+	public void pieChart(PolicyField dataType) {
+		PieChart chart = new PieChartBuilder()
+				.width(WIDTH)
+				.height(HEIGHT)
+				.title("Pie chart")
+				.build();
+		
+		Map<String, Number> series = new HashMap<>();
+		for (Policy policy : policies) {
+			switch (dataType) {
+			case TYPE:
+			case STATUS:
+			case STATE:
+				
+			}
+			
+			/*int incidents = 0;
+			for (int year : years) {
+				incidents += yearCatIncidents.getOrDefault(year + "", new HashMap<String, Integer>())
+				.getOrDefault(cat, 0);
+			}
+			chart.addSeries(cat, incidents);*/
+		}
+	}
+	
+	public void barChart(int xDataType, int yDataType) {
+		
+	}
+/*
 	public void update(ControlFilters filters) {
 		int chartType = filters.getChartType();
 		
@@ -93,24 +117,5 @@ public class ChartView extends JPanel {
 		}
 		
 		return chart;
-	}
-	
-	private Chart buildPieChart(ControlFilters filters) {
-		PieChart chart = new PieChartBuilder()
-				.width(WIDTH)
-				.height(HEIGHT)
-				.title("Pie chart")
-				.build();
-		
-		for (String cat : categories) {
-			int incidents = 0;
-			for (int year : years) {
-				incidents += yearCatIncidents.getOrDefault(year + "", new HashMap<String, Integer>())
-				.getOrDefault(cat, 0);
-			}
-			chart.addSeries(cat, incidents);
-		}
-		
-		return chart;
-	}
+	}*/
 }
