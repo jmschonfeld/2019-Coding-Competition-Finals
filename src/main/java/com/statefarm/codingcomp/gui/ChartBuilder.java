@@ -2,6 +2,7 @@ package com.statefarm.codingcomp.gui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +47,7 @@ public class ChartBuilder {
 			ranges = null;	
 		}
 		
-		Map<String, List<Policy>> buckets = new HashMap<>();
+		Map<String, List<Policy>> buckets = new LinkedHashMap<>();
 		
 		boolean useDollar = dataType == PolicyField.PREMIUM_AMOUNT;
 		if (ranges != null) {
