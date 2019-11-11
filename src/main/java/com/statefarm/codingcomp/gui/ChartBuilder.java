@@ -4,16 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import org.knowm.xchart.CategoryChart;
-import org.knowm.xchart.CategoryChartBuilder;
 import org.knowm.xchart.PieChart;
 import org.knowm.xchart.PieChartBuilder;
 import org.knowm.xchart.SwingWrapper;
 import org.knowm.xchart.internal.chartpart.Chart;
-import org.knowm.xchart.style.Styler.LegendPosition;
 
 import com.statefarm.codingcomp.enums.PolicyField;
 import com.statefarm.codingcomp.model.Policy;
@@ -36,64 +30,79 @@ public class ChartBuilder {
 				.title("Pie chart")
 				.build();
 		
-		Map<String, Number> series = new HashMap<>();
+		Map<String, Integer> series = new HashMap<>();
+		
+		Range[] ranges;
+		switch (dataType) {
+		case PREMIUM_AMOUNT:
+			ranges = RangeFilters.premiumAmountRanges;
+			break;
+		case AGE:
+			ranges = RangeFilters.ageRanges;
+			break;
+		case NUM_ACCIDENTS:
+			ranges = RangeFilters.numAccidentRanges;
+			break;
+		default:
+			ranges = null;	
+		}
+		boolean useDollar = dataType == PolicyField.PREMIUM_AMOUNT;
+		if (ranges != null) {
+			for (Range range : ranges) {
+				series.put(range.toString(useDollar), 0);
+			}
+		}
+		
 		for (Policy policy : policies) {
+			Object value = dataType.getValue(policy);
+			String name;
 			switch (dataType) {
 			case TYPE:
 			case STATUS:
 			case STATE:
-				
+				name = value.toString();
+				series.put(name, series.getOrDefault(name, 0) + 1);
+				break;
+			case PREMIUM_AMOUNT:
+			case AGE:
+			case NUM_ACCIDENTS:
+				double val;
+				if (value instanceof Integer) {
+					val = (int) value;
+				} else {
+					val = (double) value;
+				}
+				name = getRange(ranges, val).toString(useDollar);
+				series.put(name, series.get(name) + 1);
+				break;
 			}
-			
-			/*int incidents = 0;
-			for (int year : years) {
-				incidents += yearCatIncidents.getOrDefault(year + "", new HashMap<String, Integer>())
-				.getOrDefault(cat, 0);
-			}
-			chart.addSeries(cat, incidents);*/
 		}
+		
+		for (String name : series.keySet()) {
+			chart.addSeries(name, series.get(name));
+		}
+		
+		display(chart);
 	}
 	
 	public void barChart(int xDataType, int yDataType) {
 		
 	}
-/*
-	public void update(ControlFilters filters) {
-		int chartType = filters.getChartType();
-		
-		Chart chart = null;
-		if (chartType == ControlFilters.CHART_BAR) {
-			chart = buildBarChart(filters);
-		} else if (chartType == ControlFilters.CHART_PIE) {
-			chart = buildPieChart(filters);
-		}
-		
-		if (chart == null) {
-			return;
-		}
-		
-		if (currentXPanel != null) {
-			this.remove(currentXPanel);
-		}
-		
-		final Chart fChart = chart;
-		
-		new Thread(new Runnable() {
-
-			public void run() {
-				SwingWrapper wrapper = new SwingWrapper(fChart);
-				JFrame frame = wrapper.displayChart();
-				frame.setVisible(false);
-				currentXPanel = wrapper.getXChartPanel();
-				ChartView.this.add(currentXPanel);
-				ChartView.this.repaint();
-			}
-			
-		}).start();
-		
-		
+	
+	private void display(Chart chart) {
+		new SwingWrapper(chart).displayChart();
 	}
 	
+	private Range getRange(Range[] ranges, double value) {
+		for (Range range : ranges) {
+			if (range.includes(value)) {
+				return range;
+			}
+		}
+		return null;
+	}
+	
+	/*
 	private Chart buildBarChart(ControlFilters filters) {
 		CategoryChart chart = new CategoryChartBuilder()
 				.width(WIDTH)
