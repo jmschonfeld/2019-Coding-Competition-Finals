@@ -21,7 +21,7 @@ public enum PolicyField {
 			return String.join(" ", Arrays.asList(policy.getPolicyStatus().name().split("_"))
 					.stream()
 					.map(part -> part.charAt(0) + part.substring(1).toLowerCase())
-					.collect(Collectors.toList()));
+					.collect(Collectors.toList())).replaceAll(" By ", " by ");
 		case STATE:
 			return policy.getState();
 		case PREMIUM_AMOUNT:

@@ -4,6 +4,8 @@ public class RangeFilters {
 	public static final Range[] premiumAmountRanges = {
 			new Range(0, 499),
 			new Range(500, 999),
+			new Range(1000, 1499),
+			new Range(1500, 1999),
 			new Range(2000, Integer.MAX_VALUE)
 	};
 	
