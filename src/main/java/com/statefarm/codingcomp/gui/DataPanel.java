@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import com.statefarm.codingcomp.DataFilter;
 import com.statefarm.codingcomp.model.Policy;
 
 public class DataPanel extends JPanel implements DataReceiver {
@@ -19,7 +20,7 @@ public class DataPanel extends JPanel implements DataReceiver {
 	private JTable table;
 	private JLabel recordLabel;
 	
-	private static final String[] HEADERS = new String[]{"Policy Type", "Policy Status", "State", "Annual Premium", "Age", "Accidents"};
+	private static final Object[] HEADERS = new String[]{"Policy Type", "Policy Status", "State", "Annual Premium", "Age", "Accidents"};
 	
 	DataPanel() {
 		this.setLayout(new BorderLayout());
@@ -27,6 +28,7 @@ public class DataPanel extends JPanel implements DataReceiver {
 		table.setFillsViewportHeight(true);
 		table.setCellSelectionEnabled(false);
 		table.setShowGrid(true);
+		table.setAutoCreateRowSorter(true);
 		table.setModel(new PolicyDataModel(HEADERS, 0));
 		
 		recordLabel = new JLabel();
@@ -39,17 +41,17 @@ public class DataPanel extends JPanel implements DataReceiver {
 	}
 
 	@Override
-	public void dataUpdated(List<Policy> policies) {
-		String[][] data = new String[policies.size()][HEADERS.length];
+	public void dataUpdated(List<Policy> policies, DataFilter filter) {
+		Object[][] data = new Object[policies.size()][HEADERS.length];
 		int i = 0;
 		for (Policy policy : policies) {
-			data[i] = new String[] {
+			data[i] = new Object[] {
 				policy.getPolicyType(),
 				policy.getPolicyStatus().getUserFriendlyName(),
 				policy.getState(),
-				policy.getAnnualPremium() + "",
-				policy.getAge() + "",
-				policy.getNumberOfAccidents() + ""
+				policy.getAnnualPremium(),
+				policy.getAge(),
+				policy.getNumberOfAccidents()
 			};
 			i++;
 		}
@@ -61,12 +63,28 @@ public class DataPanel extends JPanel implements DataReceiver {
 	private class PolicyDataModel extends DefaultTableModel {
 		private static final long serialVersionUID = 2459270881757581627L;
 
-		PolicyDataModel(String[] columnNames, int numRows) {
+		PolicyDataModel(Object[] columnNames, int numRows) {
 			super(columnNames, numRows);
 		}
 		
-		PolicyDataModel(String[][] data, String[] columnNames) {
+		PolicyDataModel(Object[][] data, Object[] columnNames) {
 			super(data, columnNames);
+		}
+		
+		@Override
+		public Class<?> getColumnClass(int column) {
+			switch (column) {
+			case 0:
+			case 1:
+			case 2:
+				return String.class;
+			case 3:
+				return Double.class;
+			case 4:
+			case 5:
+				return Integer.class;
+			}
+			return null;
 		}
 		
 		@Override

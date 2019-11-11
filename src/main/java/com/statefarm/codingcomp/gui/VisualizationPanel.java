@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import com.statefarm.codingcomp.DataFilter;
 import com.statefarm.codingcomp.model.Policy;
 import com.statefarm.codingcomp.reader.Reader;
 
@@ -53,7 +54,8 @@ public class VisualizationPanel extends JPanel {
 		this.add(north, BorderLayout.NORTH);
 		this.add(dataPanel, BorderLayout.CENTER);
 		try {
-			dataPanel.dataUpdated(new Reader().read());
+			List<Policy> data = new Reader().read();
+			dataPanel.dataUpdated(data, new DataFilter(data));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

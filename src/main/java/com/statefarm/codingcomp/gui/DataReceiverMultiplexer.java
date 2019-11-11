@@ -2,6 +2,7 @@ package com.statefarm.codingcomp.gui;
 
 import java.util.List;
 
+import com.statefarm.codingcomp.DataFilter;
 import com.statefarm.codingcomp.model.Policy;
 
 public class DataReceiverMultiplexer implements DataReceiver {
@@ -13,9 +14,9 @@ public class DataReceiverMultiplexer implements DataReceiver {
 	}
 
 	@Override
-	public void dataUpdated(List<Policy> policies) {
+	public void dataUpdated(List<Policy> policies, DataFilter filter) {
 		for (DataReceiver rec : receivers) {
-			rec.dataUpdated(policies);
+			rec.dataUpdated(policies, filter);
 		}
 	}
 

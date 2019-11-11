@@ -17,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.statefarm.codingcomp.DataFilter;
 import com.statefarm.codingcomp.enums.PolicyField;
 import com.statefarm.codingcomp.enums.YAxis;
 import com.statefarm.codingcomp.model.Policy;
@@ -30,6 +31,7 @@ public class ChartCreatorPanel extends JPanel implements ActionListener, DataRec
 	private JComboBox<String> xSelector, ySelector;
 
 	private List<Policy> data;
+	private String filterDesc = "";
 	
 	ChartCreatorPanel(List<Policy> data) {
 		this.data = data;
@@ -82,7 +84,11 @@ public class ChartCreatorPanel extends JPanel implements ActionListener, DataRec
 		new Thread() {
 			@Override
 			public void run() {
-				ChartBuilder builder = new ChartBuilder(data);
+				String name = xVals[xSelector.getSelectedIndex()].getUserFriendlyName().trim();
+				if (ySelector.getSelectedIndex() > 0) {
+					name += " x " + yVals[ySelector.getSelectedIndex() - 1].getUserFriendlyName().trim();
+				}
+				ChartBuilder builder = new ChartBuilder(data, name + ": " + filterDesc);
 				if (ySelector.getSelectedIndex() == 0) {
 					builder.pieChart(xVals[xSelector.getSelectedIndex()]);
 				} else {
@@ -93,7 +99,8 @@ public class ChartCreatorPanel extends JPanel implements ActionListener, DataRec
 	}
 
 	@Override
-	public void dataUpdated(List<Policy> policies) {
+	public void dataUpdated(List<Policy> policies, DataFilter filter) {
 		this.data = policies;
+		this.filterDesc = filter.toString();
 	}
 }

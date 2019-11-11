@@ -102,7 +102,7 @@ public class FiltersPanel extends JPanel implements ItemListener {
 				filter = filter.numAccidentsRange(RangeFilters.numAccidentRanges[accidentSelector.getSelectedIndex() - 1]);
 			}
 			
-			object.dataUpdated(filter.getPolicies());
+			object.dataUpdated(filter.getPolicies(), filter);
 		}
 	}
 	
