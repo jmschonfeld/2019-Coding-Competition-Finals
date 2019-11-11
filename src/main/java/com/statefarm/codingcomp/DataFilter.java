@@ -3,6 +3,7 @@ package com.statefarm.codingcomp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import com.statefarm.codingcomp.enums.PolicyStatus;
 import com.statefarm.codingcomp.model.Policy;
@@ -15,39 +16,50 @@ public class DataFilter {
 		this.policies = policies;
 	}
 	
-	public DataFilter policyType(String... types) {
-		List<String> typeList = Arrays.asList(types);
+	private DataFilter filter(Function<? super Policy, Boolean> filter) {
 		List<Policy> filtered = new ArrayList<>();
 		for (Policy policy : policies) {
-			if (typeList.contains(policy.getPolicyType())) {
+			if (filter.apply(policy)) {
 				filtered.add(policy);
 			}
 		}
-		policies = filtered;
+		this.policies = filtered;
 		return this;
+	}
+	
+	private boolean contains(Object[] objects, Object value) {
+		return Arrays.asList(objects).contains(value);
+	}
+	
+	public List<Policy> getPolicies() {
+		return policies;
+	}
+	
+	public DataFilter policyType(String... types) {
+		return filter(policy -> contains(types, policy.getPolicyType()));
 	}
 	
 	public DataFilter policyStatus(PolicyStatus... statuses) {
-		return this;
+		return filter(policy -> contains(statuses, policy.getPolicyStatus()));
 	}
 	
 	public DataFilter state(String... states) {
-		return this;
+		return filter(policy -> contains(states, policy.getState()));
 	}
 	
 	public DataFilter annualPremium(double min, double max) {
-		return this;
+		return filter(policy -> min <= policy.getAnnualPremium() && policy.getAnnualPremium() <= max);
 	}
 	
 	public DataFilter age(int age) {
-		return this;
+		return filter(policy -> age == policy.getAge());
 	}
 	
 	public DataFilter ageRange(int min, int max) {
-		return this;
+		return filter(policy -> min <= policy.getAge() && policy.getAge() <= max);
 	}
 	
 	public DataFilter numAccidentsRange(int min, int max) {
-		return this;
+		return filter(policy -> min <= policy.getNumberOfAccidents() && policy.getNumberOfAccidents() <= max);
 	}
 }
