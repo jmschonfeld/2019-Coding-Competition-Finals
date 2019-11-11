@@ -15,7 +15,8 @@ public class Test {
 		List<Policy> policies = new Reader().read();
 		DataFilter filter = new DataFilter(policies);
 		
-		new ChartBuilder(filter.getPolicies()).barChart(PolicyField.STATUS, YAxis.NUM_POLICIES);
+		new ChartBuilder(filter.getPolicies()).barChart(PolicyField.STATE, YAxis.NUM_POLICIES);
+		new ChartBuilder(filter.getPolicies()).barChart(PolicyField.STATE, YAxis.ANNUAL_PREMIUM);
 		//new ChartBuilder(filter.getPolicies()).pieChart(PolicyField.STATUS);
 	}
 	

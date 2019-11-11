@@ -147,6 +147,7 @@ public class ChartBuilder {
 	
 	private void display(Chart chart) {
 		JFrame frame = new SwingWrapper(chart).displayChart();
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	}
 	
 	private Range getRange(Range[] ranges, double value) {
