@@ -22,10 +22,12 @@ public class Range {
 	public String toString(boolean showDollars) {
 		String prefix = showDollars ? "$" : "";
 		
-		if (min == 0) {
-			return "< " + prefix + max;
+		if (min == max) {
+			return prefix + min;
+		} else if (min == 0) {
+			return "< " + prefix + (max + 1);
 		} else if (max == Integer.MAX_VALUE) {
-			return "> " + prefix + min;
+			return "> " + prefix + (min - 1);
 		} else {
 			return prefix + min + " - " + prefix + max;	
 		}
