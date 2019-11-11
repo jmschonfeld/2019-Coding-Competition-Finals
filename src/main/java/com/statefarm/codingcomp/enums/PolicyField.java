@@ -11,7 +11,18 @@ public enum PolicyField {
 	STATE,
 	PREMIUM_AMOUNT,
 	AGE,
-	NUM_ACCIDENTS;
+	NUMBER_OF_ACCIDENTS;
+	
+	public String getUserFriendlyName() {
+		String[] parts = this.name().toLowerCase().split("_");
+		StringBuilder builder = new StringBuilder();
+		for (String part : parts) {
+			builder.append(part.substring(0, 1).toUpperCase());
+			builder.append(part.substring(1));
+			builder.append(" ");
+		}
+		return builder.toString();
+	}
 	
 	public Object getValue(Policy policy) {
 		switch (this) {
@@ -28,7 +39,7 @@ public enum PolicyField {
 			return policy.getAnnualPremium();
 		case AGE:
 			return policy.getAge();
-		case NUM_ACCIDENTS:
+		case NUMBER_OF_ACCIDENTS:
 			return policy.getNumberOfAccidents();
 		}
 		return null;

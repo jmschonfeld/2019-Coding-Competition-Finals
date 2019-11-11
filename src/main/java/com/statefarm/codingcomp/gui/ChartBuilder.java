@@ -39,7 +39,7 @@ public class ChartBuilder {
 		case AGE:
 			ranges = RangeFilters.ageRanges;
 			break;
-		case NUM_ACCIDENTS:
+		case NUMBER_OF_ACCIDENTS:
 			ranges = RangeFilters.numAccidentRanges;
 			break;
 		default:
@@ -69,7 +69,7 @@ public class ChartBuilder {
 				break;
 			case PREMIUM_AMOUNT:
 			case AGE:
-			case NUM_ACCIDENTS:
+			case NUMBER_OF_ACCIDENTS:
 				double val;
 				if (value instanceof Integer) {
 					val = (int) value;
@@ -126,20 +126,20 @@ public class ChartBuilder {
 			double value = 0;
 			for (Policy policy : buckets.get(name)) {
 				switch (yAxis) {
-				case NUM_POLICIES:
+				case NUMBER_OF_POLICIES:
 					value++;
 					break;
-				case NUM_ACCIDENTS:
-				case NUM_ACCIDENTS_AVERAGE:
+				case NUMBER_OF_ACCIDENTS:
+				case AVERAGE_NUMBER_OF_ACCIDENTS:
 					value += policy.getNumberOfAccidents();
 					break;
 				case ANNUAL_PREMIUM:
-				case ANNUAL_PREMIUM_AVERAGE:
+				case AVERAGE_ANNUAL_PREMIUM:
 					value += policy.getAnnualPremium();
 					break;
 				}
 			}
-			if (yAxis == YAxis.ANNUAL_PREMIUM_AVERAGE || yAxis == YAxis.NUM_ACCIDENTS_AVERAGE) {
+			if (yAxis == YAxis.AVERAGE_ANNUAL_PREMIUM || yAxis == YAxis.AVERAGE_NUMBER_OF_ACCIDENTS) {
 				value /= buckets.get(name).size();
 			}
 			xData.add(name);

@@ -11,8 +11,9 @@ public class RangeFilters {
 	
 	public static final Range[] ageRanges = {
 			new Range(0, 19),
-			new Range(20, 64),
-			new Range(65, Integer.MAX_VALUE)
+			new Range(20, 39),
+			new Range(40, 59),
+			new Range(60, Integer.MAX_VALUE)
 	};
 	
 	public static final Range[] numAccidentRanges = {

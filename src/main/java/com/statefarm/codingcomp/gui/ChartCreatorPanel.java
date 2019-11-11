@@ -62,7 +62,7 @@ public class ChartCreatorPanel extends JPanel implements ActionListener, DataRec
 	}
 	
 	private String[] genNames(PolicyField[] fields, boolean addDash) {
-		List<String> lst = Arrays.asList(fields).stream().map(item -> item.name()).collect(Collectors.toList());
+		List<String> lst = Arrays.asList(fields).stream().map(item -> item.getUserFriendlyName()).collect(Collectors.toList());
 		if (addDash) {
 			lst.add(0, "-");
 		}
@@ -70,7 +70,7 @@ public class ChartCreatorPanel extends JPanel implements ActionListener, DataRec
 	}
 	
 	private String[] genNames(YAxis[] fields, boolean addDash) {
-		List<String> lst = Arrays.asList(fields).stream().map(item -> item.name()).collect(Collectors.toList());
+		List<String> lst = Arrays.asList(fields).stream().map(item -> item.getUserFriendlyName()).collect(Collectors.toList());
 		if (addDash) {
 			lst.add(0, "-");
 		}

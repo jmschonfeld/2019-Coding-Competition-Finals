@@ -15,7 +15,7 @@ public class Test {
 		List<Policy> policies = new Reader().read();
 		DataFilter filter = new DataFilter(policies);
 		
-		new ChartBuilder(filter.getPolicies()).barChart(PolicyField.STATE, YAxis.NUM_POLICIES);
+		new ChartBuilder(filter.getPolicies()).barChart(PolicyField.STATE, YAxis.NUMBER_OF_POLICIES);
 		//new ChartBuilder(filter.getPolicies()).pieChart(PolicyField.STATUS);
 	}
 	
