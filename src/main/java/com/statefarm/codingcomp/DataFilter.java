@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import com.statefarm.codingcomp.enums.PolicyStatus;
+import com.statefarm.codingcomp.gui.Range;
 import com.statefarm.codingcomp.model.Policy;
 
 public class DataFilter {
@@ -47,19 +48,19 @@ public class DataFilter {
 		return filter(policy -> contains(states, policy.getState()));
 	}
 	
-	public DataFilter annualPremium(double min, double max) {
-		return filter(policy -> min <= policy.getAnnualPremium() && policy.getAnnualPremium() <= max);
+	public DataFilter annualPremium(Range range) {
+		return filter(policy -> range.includes(policy.getAnnualPremium()));
 	}
 	
 	public DataFilter age(int age) {
 		return filter(policy -> age == policy.getAge());
 	}
 	
-	public DataFilter ageRange(int min, int max) {
-		return filter(policy -> min <= policy.getAge() && policy.getAge() <= max);
+	public DataFilter ageRange(Range range) {
+		return filter(policy -> range.includes(policy.getAge()));
 	}
 	
-	public DataFilter numAccidentsRange(int min, int max) {
-		return filter(policy -> min <= policy.getNumberOfAccidents() && policy.getNumberOfAccidents() <= max);
+	public DataFilter numAccidentsRange(Range range) {
+		return filter(policy -> range.includes(policy.getNumberOfAccidents()));
 	}
 }
